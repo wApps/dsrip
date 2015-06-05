@@ -43,8 +43,8 @@ dsrip.buildSBU=function(id){
                     document.getElementById("logOutSBU").onclick=function(){dsrip.buildSBU(id)}
                 },2000)
             },
-            function(){ // on error
-                submitBasicCredentialsMsg.textContent=" connection failed :-("
+            function(er){ // on error
+                submitBasicCredentialsMsg.innerHTML=" connection failed :-( <p><pre> "+er.responseText+"</pre></p>"
             })
         4
     }
