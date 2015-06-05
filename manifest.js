@@ -39,7 +39,8 @@ wApps.manifest.apps.push(
     "url" : 'https://github.com/wApps/dsrip',
     "author" : 'Jonas Almeida',
     buildUI : function(id){ 
-        this.require('http://localhost:8000/wapps_dsrip/dsrip.js', 
+        //this.require('http://localhost:8000/wapps_dsrip/dsrip.js',
+        this.require('https://wapps.github.io/dsrip/dsrip.js', 
             function () {
                 dsrip.buildSBU(id);
             }
