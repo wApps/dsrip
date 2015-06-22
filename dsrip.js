@@ -150,6 +150,16 @@ dsrip.SBU_sparcs.buildUI=function(id){
             // UI assembled here
             console.log('ready to UI :-)')
             SPARCS_work.innerHTML=""
+            dsrip.SBU_sparcs.parms=Object.getOwnPropertyNames(dsrip.SBU_sparcs.tab);
+            dsrip.SBU_sparcs.n=dsrip.SBU_sparcs.tab[dsrip.SBU_sparcs.parms[0]].length
+            dsrip.SBU_sparcs.docs=dsrip.SBU_sparcs.tab[Object.getOwnPropertyNames(dsrip.SBU_sparcs.tab)[0]].map(function(d,i){
+                var doc={}
+                dsrip.SBU_sparcs.parms.map(function(p,i){
+                    doc[p]=dsrip.SBU_sparcs.tab[p][i]
+                })
+                return doc
+            })
+            loadingStatus.textContent='Parameter values extracted from '+dsrip.SBU_sparcs.n+' reccords:\n> '+dsrip.SBU_sparcs.parms.join('\n> ')
             4
 
 
