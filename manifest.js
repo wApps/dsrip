@@ -39,10 +39,24 @@ wApps.manifest.apps.push(
     "url" : 'https://github.com/wApps/dsrip',
     "author" : 'Jonas Almeida',
     buildUI : function(id){ 
-        //this.require('http://localhost:8000/wapps_dsrip/dsrip.js',
-        this.require('https://wapps.github.io/dsrip/dsrip.js', 
+        this.require(['https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js','http://localhost:8000/wapps_dsrip/dsrip.js'],
+        //this.require('https://wapps.github.io/dsrip/dsrip.js', 
             function () {
                 dsrip.buildSBU(id);
+            }
+        )}
+    },
+    {
+    "name" : 'SBU SPARCS',
+    "description" : "Exploring SBU's SPARCS dataset",
+    "url" : 'https://github.com/wApps/dsrip',
+    "author" : 'Jonas Almeida',
+    buildUI : function(id){ 
+        this.require(['https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js','https://wapps.github.io/dsrip/dsrip.js'],//'http://localhost:8000/wapps_dsrip/dsrip.js'],
+        //this.require('https://wapps.github.io/dsrip/dsrip.js', 
+        // 'https://mathbiol.github.io/openHealth/openHealth.js'
+            function () {
+                dsrip.SBU_sparcs.buildUI(id);
             }
         )}
     }
