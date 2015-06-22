@@ -95,6 +95,7 @@ dsrip.SBU_sparcs.loadData=function(fun){
                     if(x){
                         dsrip.SBU_sparcs.tab=x
                         loadingStatus.innerHTML+='\n'+'... '+dsrip.SBU_sparcs.tab[Object.getOwnPropertyNames(dsrip.SBU_sparcs.tab)[0]].length+' reccords loaded from cache'
+                        fun()
                     }else{
                         dsrip.callSBU( // (url,fun,err,cache)
                             url+"?$limit="+n+"&$offset="+i,//dsrip.SBU_sparcs.x.length,
@@ -105,7 +106,7 @@ dsrip.SBU_sparcs.loadData=function(fun){
                                 dsrip.pushDocs2Tab(x,dsrip.SBU_sparcs.tab)
                                 //console.log(new Date()+': loaded '+dsrip.SBU_sparcs.x.length+' reccords ...')
                                 loadingStatus.innerHTML+='\n'+msgi
-                                if((x.length==n)){//&(i<20000)){
+                                if((x.length==n)&(i<20000)){
                                     loadData()
                                 }else{
                                     console.log("done with dsrip.SBU_sparcs.loadData")
@@ -144,8 +145,15 @@ dsrip.SBU_sparcs.buildUI=function(id){
     var div = document.getElementById(id)
     if(dsrip.callSBU_loggedin){
         div.innerHTML='<p id="SPARCS_msg">Logged in since '+dsrip.callSBU_loggedin+'</p><div id="SPARCS_UI"></div>'
-        SPARCS_UI.innerHTML='Importing patient data to explore distribution of:<li>Age</li><li>Gender</li><li>Race</li><li>Zip Code</li><li>Payer</li><li>Discharge</li><li>Facility</li><pre id="loadingStatus">loading data ...</pre>'
-        dsrip.SBU_sparcs.loadData()
+        SPARCS_UI.innerHTML='<div id="SPARCS_work">Importing patient data to explore distribution of:<li>Age</li><li>Gender</li><li>Race</li><li>Zip Code</li><li>Payer</li><li>Discharge</li><li>Facility</li></div><pre id="loadingStatus">loading data ...</pre>'
+        dsrip.SBU_sparcs.loadData(function(){
+            // UI assembled here
+            console.log('ready to UI :-)')
+            SPARCS_work.innerHTML=""
+            4
+
+
+        })
     } else {
         div.innerHTML='Start SPARCS analysis after login in: <input id="startSPARCS" type="button" value="Start">'
         startSPARCS.onclick=function(){
