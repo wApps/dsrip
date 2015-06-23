@@ -46,7 +46,7 @@ dsrip.buildSBU=function(id){
                 submitBasicCredentialsMsg.style.color="green"
                 dsrip.callSBU_loggedin=new Date()
                 setTimeout(function(){
-                    divLog.innerHTML='<j4 style="color:green">You are logged in BMI data infrastructure</h4> <button id="logOutSBU" style="color:maroon">log out</button><p>Off-line data: <input type="checkbox" checked="true" id="offlineData"></p>'
+                    divLog.innerHTML='<j4 style="color:green">You are logged into BMI data infrastructure</h4> <button id="logOutSBU" style="color:maroon">log out</button><p>Off-line data: <input type="checkbox" checked="true" id="offlineData"></p>'
                     offlineData.onchange=function(){
                         dsrip.callSBU.offlineData=offlineData.checked
                     }
@@ -83,7 +83,11 @@ dsrip.SBU_sparcs.loadData=function(fun){
         "Facility Name":[],
         "Admission Date":[],
         "Dischage Date":[],
-        "Patient Ethnicity":[]
+        "Patient Ethnicity":[],
+        "pqi_pdi_number":[],
+        "pqi_pdi_number":[],
+        "pqi_pdi_description":[],
+        "has_pqi_pdi":[]
     }
     var loadData=function(){
         localforage.getItem(
@@ -165,7 +169,7 @@ dsrip.SBU_sparcs.buildUI=function(id){
 
         })
     } else {
-        div.innerHTML='Start SPARCS analysis after login in: <input id="startSPARCS" type="button" value="Start">'
+        div.innerHTML='Note: if you start SPARCS analysis before logging in,<br>an attempt will be made to find cached data.<br> If none is found, you will be coming come back to this page<br> and you really need to log at "Login DSRIP" first.<p> <input id="startSPARCS" type="button" value="Start"></p>'
         startSPARCS.onclick=function(){
             div.innerHTML='<span style="color:red">if you are logged in the analysis will start next, otherwiese you will be taken back to the start button </span>'
             setTimeout(function(){dsrip.SBU_sparcs.buildUI(id)},1000)
@@ -173,6 +177,11 @@ dsrip.SBU_sparcs.buildUI=function(id){
     }
 }
 
+dsrip.SBU_sparcs.findCache=function(){ // find if data already in cache
+    return new Promise(function(resolve,reject){
+        localforage.keys().then(function(kk){var y=kk.filter(function(k){return k=="dsrip.SBU_sparcs.tab"}).length>0;resolve(y)})
+    })
+}
 
 dsrip.pushDocs2Tab=function(docs,tab){ // extract JSON documents from x to y by matching atributes of tabular object in y
     Object.getOwnPropertyNames(tab).forEach(function(p){

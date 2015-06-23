@@ -3,7 +3,19 @@
 
 // 0) Time insensitivive ini
 
+
 $.getScript('https://jonasalmeida.github.io/jmat/jmat.js')
+	.then(function(){
+    	lk = document.createElement('link');
+		lk.rel='stylesheet';
+		lk.href='https://dc-js.github.io/dc.js/css/dc.css';
+		document.head.appendChild(lk);
+    })
+
+if(!localStorage.getItem("dsrip.SBU_sparcs.version")){localStorage.setItem("dsrip.SBU_sparcs.version",0)}
+    
+
+
 //$.getScript('../openHealth/openHealth.js')
 
 
@@ -44,7 +56,7 @@ wApps.manifest.apps.push(
     "url" : 'https://github.com/wApps/dsrip',
     "author" : 'Jonas Almeida',
     buildUI : function(id){ 
-        this.require(['https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js', 'https://wapps.github.io/dsrip/dsrip.js'], //'http://localhost:8000/wapps_dsrip/dsrip.js'],
+        this.require(['https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js', 'https://wapps.github.io/dsrip/dsrip.js'],//'http://localhost:8000/wapps_dsrip/dsrip.js'],
         //this.require('https://wapps.github.io/dsrip/dsrip.js', 
             function () {
                 dsrip.buildSBU(id);
@@ -57,11 +69,15 @@ wApps.manifest.apps.push(
     "url" : 'https://github.com/wApps/dsrip',
     "author" : 'Jonas Almeida',
     buildUI : function(id){ 
-        this.require(['https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js', 'https://wapps.github.io/dsrip/dsrip.js'],//'http://localhost:8000/wapps_dsrip/dsrip.js'],
+        this.require(['https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js','https://square.github.io/crossfilter/crossfilter.v1.min.js','https://dc-js.github.io/dc.js/js/dc.js','https://cdnjs.cloudflare.com/ajax/libs/localforage/1.2.2/localforage.js'], //'http://localhost:8000/wapps_dsrip/dsrip.js'],
         //this.require('https://wapps.github.io/dsrip/dsrip.js', 
         // 'https://mathbiol.github.io/openHealth/openHealth.js'
             function () {
                 dsrip.SBU_sparcs.buildUI(id);
+                if(parseFloat(localStorage.getItem("dsrip.SBU_sparcs.version"))<1){
+                	localforage.removeItem("dsrip.SBU_sparcs.tab").then(function(){console.log("cleared cache for dsrip.SBU_sparcs.tab")})
+					localStorage.setItem("dsrip.SBU_sparcs.version",1) // versioned update
+				}
 
             }
         )}
