@@ -110,7 +110,7 @@ dsrip.SBU_sparcs.loadData=function(fun){
                                 dsrip.pushDocs2Tab(x,dsrip.SBU_sparcs.tab)
                                 //console.log(new Date()+': loaded '+dsrip.SBU_sparcs.x.length+' reccords ...')
                                 loadingStatus.innerHTML+='\n'+msgi
-                                if((x.length==n)&(i<20000)){
+                                if((x.length==n)){//&(i<20000)){
                                     loadData()
                                 }else{
                                     console.log("done with dsrip.SBU_sparcs.loadData")
