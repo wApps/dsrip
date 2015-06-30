@@ -215,14 +215,14 @@ dsrip.pushDocs2Tab=function(docs,tab){ // extract JSON documents from x to y by 
 
 dsrip.doSPARC=function(id){ // displaying SPARC analysis results
     var div = document.getElementById(id)
-    div.innerHTML='<table id="SPARCStable"><tr><td id="age_group" style="vertical-align:top"><h4>Age Group</h4></td><td>...</td></tr><tr><td id="Facility_Name" style="vertical-align:top"><h4>Facility Name</h4></td><td>...</td></tr></table>'
+    div.innerHTML='<input type="button" id="rePlotSPARCS" value="refresh" style="color:green"><table id="SPARCStable"><tr><td id="age_group" style="vertical-align:top"><h4>Age Group</h4></td><td id="payer_class" style="vertical-align:top"><h4>Payer Class</h4></td><td style="vertical-align:top">...</td></tr><tr><td style="vertical-align:top"><h4>pqi_pdi_description</h4><p id="pqi_pdi_description"></p><h4>Patient Status</h4><p id="patient_status"></p><h4>Facility Name</h4><p id="Facility_Name"></p></td><td id="ccs_description" style="vertical-align:top"><h4>ccs_description</h4></td><td style="vertical-align:top">...</td></tr></table>'
     C = {}, D={}, G={}, U={}, R={}
 
     var cf = crossfilter(dsrip.SBU_sparcs.docs)
 
     var createPieChart=function(parm,cf,funColor,width,height){
-		if(!width){width=250}
-		if(!height){height=220}
+		if(!width){width=300}
+		if(!height){height=300}
 		C[parm]=dc.pieChart('#'+parm)
 		D[parm]=cf.dimension(function(d,i){
     		return d[parm]
@@ -291,7 +291,7 @@ dsrip.doSPARC=function(id){ // displaying SPARC analysis results
 			}
     	)
 
-    	if(!width){width=500}
+    	if(!width){width=400}
     	if(!height){
     		height=50+G[parm].all().length*width/40
     		//console.log(parm,width,height)
@@ -315,14 +315,25 @@ dsrip.doSPARC=function(id){ // displaying SPARC analysis results
 		}
 	}
 
+	
+
 	createPieChart("age_group",cf)
+	createPieChart("payer_class",cf)
+	createRowChart("patient_status",cf)
 	createRowChart("Facility Name",cf)
+	createRowChart("ccs_description",cf)
+	createRowChart("pqi_pdi_description",cf)
 
 
 
 	dc.renderAll();
     $('.dc-chart g text').css('fill','black');
     $('#SPARCStable td').css({color:"navy"})
+
+    rePlotSPARCS.onclick=function(){
+    	dc.filterAll();dc.renderAll()
+    	$('.dc-chart g text').css('fill','black');
+    }
 
 
 
