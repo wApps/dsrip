@@ -214,6 +214,9 @@ dsrip.pushDocs2Tab=function(docs,tab){ // extract JSON documents from x to y by 
 
 
 dsrip.doSPARC=function(id){ // displaying SPARC analysis results
+    // clean pqis
+    //dsrip.SBU_sparcs.tab.pqi_pdi_description=dsrip.SBU_sparcs.tab.pqi_pdi_description.filter(function(x){if(!x){return 'NA'}else{return x}})
+    dsrip.SBU_sparcs.docs=dsrip.SBU_sparcs.docs.filter(function(d){return d.pqi_pdi_description})
     var div = document.getElementById(id)
     div.innerHTML='<input type="button" id="rePlotSPARCS" value="refresh" style="color:green"><table id="SPARCStable"><tr><td id="age_group" style="vertical-align:top"><h4>Age Group</h4></td><td id="payer_class" style="vertical-align:top"><h4>Payer Class</h4></td><td style="vertical-align:top">...</td></tr><tr><td style="vertical-align:top"><h4>pqi_pdi_description</h4><p id="pqi_pdi_description"></p><h4>Patient Status</h4><p id="patient_status"></p><h4>Facility Name</h4><p id="Facility_Name"></p></td><td id="ccs_description" style="vertical-align:top"><h4>ccs_description</h4></td><td style="vertical-align:top">...</td></tr></table>'
     C = {}, D={}, G={}, U={}, R={}
