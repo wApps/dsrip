@@ -294,9 +294,9 @@ dsrip.doSPARC=function(id){ // displaying SPARC analysis results
 			}
     	)
 
-    	if(!width){width=400}
+    	if(!width){width=340}
     	if(!height){
-    		height=50+G[parm].all().length*width/40
+    		height=50+G[parm].all().length*width/30
     		//console.log(parm,width,height)
     	}
     	else{height=250}
