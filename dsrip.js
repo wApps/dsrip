@@ -346,4 +346,20 @@ dsrip.doSPARC=function(id){ // displaying SPARC analysis results
 }
 
 
+dsrip.SBU_nsqip=function(){}
+dsrip.SBU_nsqip.buildUI=function(id){
+	var div = document.getElementById(id)
+	div.innerHTML=''
+	$('<p>Analysing data fom the American College of Surgeons National Surgical Quality Improvement Program (<a href="https://www.facs.org/quality-programs/acs-nsqip" target=_blank>NSQIP</a>).</p>').appendTo(div)
+	$('<p>To have acess to the data you either have to be within SBU network and <button>logged in DSRIP</button> or would have had to cache the data while you were there.</p>').appendTo(div)
+	$('<button onclick="dsrip.SBU_nsqip.start(this)" style="color:blue;font-size:large;background-color:yellow">Start analysis</button>').appendTo(div)
+
+
+	4
+}
+dsrip.SBU_nsqip.start=function(that){
+	4
+}
+
+
 
